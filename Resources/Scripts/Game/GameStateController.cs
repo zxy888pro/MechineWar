@@ -97,7 +97,7 @@ public class GameStateController : IGameSystem
         {
             if (m_curState != null)
                 return m_curState.GameState;
-            return EGAME_STATE_TYPE.EGAME_STATE_GAME_READY;
+            return EGAME_STATE_TYPE.EGAME_STATE_MENU;
         }
     }
 
