@@ -23,6 +23,11 @@ public class BaseObject : MonoBehaviour
 
     }
 
+    public void NotifyEvent(object sender, GameEventType type, GameEvtArg arg)
+    {
+        mEvtCtx.FireEvent(sender, type, arg);
+    }
+
     /// <summary>
     /// 重新设初值
     /// </summary>

@@ -144,6 +144,7 @@ public class GameStateController : IGameSystem
         if (m_curState.IsRunning == false)
         {
             m_curState.OnStateBegin();
+            
         }
         m_curState.OnStateUpdate();
     }

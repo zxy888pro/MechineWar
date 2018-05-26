@@ -74,6 +74,7 @@ public class GameBaseState : IInputMessageHandler
     {
         m_elapseTick = 0;
         m_lastTick = GlobalClient.Instance.GetCurrentTicks();
+        m_bIsRunning = true;
     }
 
     public virtual void OnStateEnd()
@@ -83,18 +84,21 @@ public class GameBaseState : IInputMessageHandler
 
     public virtual void OnStateUpdate()
     {
-
-        if (m_elapseTick < m_gameStateTick)
+        if (m_bIsRunning)
         {
-            long deltaTick = GlobalClient.Instance.GetCurrentTicks() - m_lastTick;
-            m_elapseTick += deltaTick;
-            m_lastTick = GlobalClient.Instance.GetCurrentTicks();
+            if (m_elapseTick < m_gameStateTick)
+            {
+                long deltaTick = GlobalClient.Instance.GetCurrentTicks() - m_lastTick;
+                m_elapseTick += deltaTick;
+                m_lastTick = GlobalClient.Instance.GetCurrentTicks();
 
-        }
-        else
-        {
+            }
+            else
+            {
 
+            }
         }
+       
 
     }
 
