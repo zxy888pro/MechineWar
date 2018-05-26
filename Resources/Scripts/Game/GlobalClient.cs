@@ -30,6 +30,12 @@ public class GlobalClient
         return System.Environment.TickCount;
     }
 
+    public IInputMessageHandler GetInputMessageHandler()
+    {
+        if (m_gameStateController == null)
+            return null;
+        return m_gameStateController.CurGameState;
+    }
    
     public void Update()
     {

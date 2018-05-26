@@ -53,9 +53,10 @@ public enum JoyStickButton
 /// </summary>
 public class MouseMessage : InputMessage
 {
-    public short x, y;
+    public float x, y;
+    public float dx, dy;
     public MouseButton button; //鼠標鍵
-    public int wheelChange;
+    public float wheelChange;
 
 }
 

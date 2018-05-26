@@ -9,7 +9,7 @@ public enum EGAME_STATE_TYPE
 
 }
 
-public class GameBaseState
+public class GameBaseState : IInputMessageHandler
 {
 
     protected EGAME_STATE_TYPE m_estateType;
@@ -20,6 +20,8 @@ public class GameBaseState
     public long m_gameStateTick = 6000;
     protected long m_elapseTick = 0;
     protected long m_lastTick = 0;
+
+    
 
     public long ElapseTime
     {
@@ -96,7 +98,26 @@ public class GameBaseState
 
     }
 
+    
+
     public virtual void OnStateDestory()
+    {
+
+    }
+
+    public virtual void OnMouseMessage(MouseMessage msg)
+    {
+
+    }
+
+
+    public virtual void OnKeyMessage(KeyBoardMessage msg)
+    {
+
+    }
+
+
+    public virtual void OnJoyStickMessage(JoyStickMessage msg)
     {
 
     }

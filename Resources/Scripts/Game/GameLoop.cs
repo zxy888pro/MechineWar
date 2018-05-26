@@ -12,7 +12,7 @@ public class GameLoop : MonoBehaviour
     void Awake()
     {
         GameObject.DontDestroyOnLoad(this);
-
+        gameObject.AddComponent<GameInputHandler>(); 
         UnityEngine.Random.seed = (int)DateTime.Now.Ticks;
         globalClient = new GlobalClient();
         GlobalClient.Instance.Initialze();
