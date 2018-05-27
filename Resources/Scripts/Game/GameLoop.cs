@@ -12,7 +12,7 @@ public class GameLoop : MonoBehaviour
     void Awake()
     {
         GameObject.DontDestroyOnLoad(this);
-        gameObject.AddComponent<GameInputHandler>(); 
+        gameObject.AddComponent<InputMessageDispatcher>(); 
         UnityEngine.Random.seed = (int)DateTime.Now.Ticks;
         globalClient = new GlobalClient();
         GlobalClient.Instance.Initialze();
@@ -29,6 +29,8 @@ public class GameLoop : MonoBehaviour
     void Update()
     {
         m_stateController.UpdateGameState();
+        GlobalClient.Instance.cameraController.Update();
+        
     }
 
 

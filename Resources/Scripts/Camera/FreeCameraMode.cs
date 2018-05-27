@@ -68,6 +68,7 @@ public class FreedomCameraMode : CameraMode
         {
             transform.position = transform.position + transform.right * m_MoveSpeed * 0.01f;
         }
+        
     }
 
     public override void OnSwitchMode()
@@ -159,5 +160,6 @@ public class FreedomCameraMode : CameraMode
             default:
                 break;
         }
+
     }
 }

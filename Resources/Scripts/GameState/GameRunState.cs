@@ -47,6 +47,7 @@ public class GameRunState : GameBaseState
     public override void OnKeyMessage(KeyBoardMessage msg)
     {
         base.OnKeyMessage(msg);
+        GlobalClient.Instance.cameraController.cameraMode.OnKeyBoardMessage(msg);
     }
     
 }

@@ -20,6 +20,19 @@ public class CameraController : IGameSystem
     /// </summary>
     Transform mCamTrans;
 
+    public void SetCurrentCamera(Camera cam)
+    {
+        if(cam != null)
+        {
+            mCamTrans = cam.transform;
+        }
+    }
+
+    public Camera GetCurrentCamera()
+    {
+        return mCamTrans.gameObject.GetComponent<Camera>();
+    }
+
     public CameraMode cameraMode
     {
         get
@@ -65,9 +78,13 @@ public class CameraController : IGameSystem
     {
         base.Initialize();
         instance = this;
+        //默認主相機
+        mCamTrans = Camera.main.transform;
         //SwitchCameraMode(ECameraModeType.ThirdPersonCamera);
         SwitchCameraMode(ECameraModeType.FreedomCamera);
     }
+
+    
 
     public override void Release()
     {

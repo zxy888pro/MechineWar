@@ -13,6 +13,13 @@ public enum GameEventType
     //单位事件
     GameEventType_RemoveEntity,
     //游戏状态到时
-    GameEventType_OnGameStateTimeOut
+    GameEventType_OnGameStateTimeOut,
+
+
+    //UI事件
+    //關閉窗口
+    GameEventType_HideWindow,
+    //顯示窗口
+    GameEventType_ShowWindow
     
 }

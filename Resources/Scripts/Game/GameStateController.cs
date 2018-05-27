@@ -11,14 +11,13 @@ public class GameStateController : IGameSystem
     //一局时间
     public float gameTime = 20f;
 
-    private GameEventContext m_evtCtx;
     private GameBaseState m_curState;
     private IEnumerator mCoroutine;
 
 
     public static GameStateController instance = null;
 
-    public GameStateController()
+    public GameStateController():base()
     {
         instance = this;
 
@@ -27,6 +26,9 @@ public class GameStateController : IGameSystem
     public override void Initialize()
     {
         base.Initialize();
+        RegisterClientEvt();
+        m_curState = new GameMenuState();
+        m_curState.OnStateBegin();
     }
 
     public override void Update()
@@ -38,6 +40,7 @@ public class GameStateController : IGameSystem
     public override void Release()
     {
         base.Release();
+        UnRegisterClientEvt();
     }
 
     /// <summary>
@@ -54,18 +57,17 @@ public class GameStateController : IGameSystem
 
     }
 
-
     /// <summary>
     /// 客户端事件
     /// </summary>
     public void RegisterClientEvt()
     {
-
+        GlobalClient.Instance.eventManager.AddEventReceiver(GameEventType.GameEventType_GameStateSwitch, mEvtCtx, OnSwitchClientState);
     }
 
     public void UnRegisterClientEvt()
     {
-
+        GlobalClient.Instance.eventManager.RemoveEventReceiver(GameEventType.GameEventType_GameStateSwitch, mEvtCtx, OnSwitchClientState);
 
     }
     /// <summary>
@@ -125,13 +127,57 @@ public class GameStateController : IGameSystem
                         m_curState = new GameBaseState();
                     }
                     break;
+                case EGAME_STATE_TYPE.EGAME_STATE_MENU:
+                    {
+                        m_curState = new GameMenuState();
+                    }
+                    break;
+                case EGAME_STATE_TYPE.EGAME_STATE_GAME:
+                    {
+                        m_curState = new GameRunState();
+                    }
+                    break;
             }
         }
 
     }
 
+    public void OnInitClient(object sender, EventArgs arg)
+    {
 
+    }
 
+    public void OnSwitchClientState(object sender, EventArgs arg)
+    {
+        GameEvtArg garg = arg as GameEvtArg;
+        if(garg != null)
+        {
+            EGAME_STATE_TYPE state = (EGAME_STATE_TYPE)garg.databuf.ReadByte();
+            //如有需要做一些特別處理
+            switch(state)
+            {
+                case EGAME_STATE_TYPE.EGAME_STATE_GAME:
+                    {
+                        
+                    }
+                    break;
+                case EGAME_STATE_TYPE.EGAME_STATE_MENU:
+                    {
+                        
+                    }
+                    break;
+                default:
+                    {
+                        
+                    }
+                    break;
+            }
+            SwitchGameState(state);
+            m_curState.OnStateBegin();
+        }
+        
+
+    }
 
 
 
