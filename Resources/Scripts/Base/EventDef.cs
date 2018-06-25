@@ -20,6 +20,8 @@ public enum GameEventType
     //關閉窗口
     GameEventType_HideWindow,
     //顯示窗口
-    GameEventType_ShowWindow
+    GameEventType_ShowWindow,
+    //销毁窗口
+    GameEventType_DestroyWindow
     
 }

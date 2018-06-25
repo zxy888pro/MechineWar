@@ -9,12 +9,18 @@ public class GlobalClient
     protected GameEventManager m_gameEventManager;
     protected GameStateController m_gameStateController;
     protected CameraController m_cameraController;
+    protected ResourceManager m_resourceManager;
+    protected SceneManager m_sceneManager;
+    protected ObjectPoolManager m_objectPoolManager;
     protected UIManager m_uiManager;
 
     public GameEventManager eventManager { get { return m_gameEventManager; } }
     public GameStateController gameStateController { get { return m_gameStateController; } }
     public CameraController cameraController { get { return m_cameraController; } }
     public UIManager uiManager { get { return m_uiManager; } }
+    public SceneManager sceneManager { get { return m_sceneManager; } }
+    public ResourceManager resourceManager { get { return m_resourceManager; } }
+    public ObjectPoolManager objectPoolManager { get { return m_objectPoolManager; } }
    
 
 
@@ -27,11 +33,19 @@ public class GlobalClient
     public void Initialze()
     {
         m_gameEventManager = new GameEventManager();
+        m_resourceManager = new ResourceManager();
+        m_sceneManager = new SceneManager();
+        m_objectPoolManager = new ObjectPoolManager();
         m_gameStateController = new GameStateController();
         m_cameraController = new CameraController();
         m_uiManager = new UIManager();
 
+        
+
         m_gameEventManager.Initialize();
+        m_resourceManager.Initialize();
+        m_sceneManager.Initialize();
+        m_objectPoolManager.Initialize();
         m_cameraController.Initialize();
         m_gameStateController.Initialize();
         m_uiManager.Initialize();
