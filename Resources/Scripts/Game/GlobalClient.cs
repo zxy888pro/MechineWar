@@ -13,6 +13,7 @@ public class GlobalClient
     protected SceneManager m_sceneManager;
     protected ObjectPoolManager m_objectPoolManager;
     protected UIManager m_uiManager;
+    
 
     public GameEventManager eventManager { get { return m_gameEventManager; } }
     public GameStateController gameStateController { get { return m_gameStateController; } }
@@ -49,6 +50,7 @@ public class GlobalClient
         m_cameraController.Initialize();
         m_gameStateController.Initialize();
         m_uiManager.Initialize();
+
 
 
     }

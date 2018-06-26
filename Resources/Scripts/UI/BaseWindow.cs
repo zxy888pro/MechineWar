@@ -1,7 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
+using System;
 
-public class BaseWindow : BaseObject
+
+public enum WindowOperationEventType
+{
+    WindowEventType_OnClick,
+    WindowEventType_OnEnter,
+    WindowEventType_OnExit,
+    WindowEventType_OnDown,
+    WindowEventType_OnUp
+}
+
+[Serializable]
+public class WindowEventData
+{
+    public int eventType;
+    public float mouseX;
+    public float mouseY;
+    public long objectID;
+}
+
+
+public class BaseWindow : BaseObject,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler,IPointerUpHandler
 {
     protected RectTransform m_rt;
     protected bool m_bVisable;
@@ -42,6 +65,34 @@ public class BaseWindow : BaseObject
         m_bVisable = true;
     }
 
+    public virtual void OnPointerClick(PointerEventData eventData)
+    {
+         
+        
+    }
+
+    public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+        //当鼠标光标移入该对象时触发
+    }
+
+
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+        //当鼠标光标移出该对象时触发
+    }
+
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+
+    }
+
+    public virtual void OnPointerUp(PointerEventData eventData)
+    {
+
+    }
+
+    
     // Use this for initialization
     void Start()
     {

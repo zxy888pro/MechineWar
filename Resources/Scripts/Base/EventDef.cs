@@ -17,11 +17,14 @@ public enum GameEventType
 
 
     //UI事件
+    //窗口事件
     //關閉窗口
     GameEventType_HideWindow,
     //顯示窗口
     GameEventType_ShowWindow,
     //销毁窗口
-    GameEventType_DestroyWindow
+    GameEventType_DestroyWindow,
+    //操作事件
+    GameEventType_WindowOpearation
     
 }
