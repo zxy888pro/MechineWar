@@ -13,7 +13,7 @@ public class GlobalClient
     protected SceneManager m_sceneManager;
     protected ObjectPoolManager m_objectPoolManager;
     protected UIManager m_uiManager;
-    
+    protected MessageDispatcher m_messageDispatcher;
 
     public GameEventManager eventManager { get { return m_gameEventManager; } }
     public GameStateController gameStateController { get { return m_gameStateController; } }
@@ -22,6 +22,7 @@ public class GlobalClient
     public SceneManager sceneManager { get { return m_sceneManager; } }
     public ResourceManager resourceManager { get { return m_resourceManager; } }
     public ObjectPoolManager objectPoolManager { get { return m_objectPoolManager; } }
+    public MessageDispatcher messageDispatcher { get { return m_messageDispatcher; } }
    
 
 
@@ -34,6 +35,7 @@ public class GlobalClient
     public void Initialze()
     {
         m_gameEventManager = new GameEventManager();
+        m_messageDispatcher = new MessageDispatcher();
         m_resourceManager = new ResourceManager();
         m_sceneManager = new SceneManager();
         m_objectPoolManager = new ObjectPoolManager();
@@ -44,6 +46,7 @@ public class GlobalClient
         
 
         m_gameEventManager.Initialize();
+        m_messageDispatcher.Initialize();
         m_resourceManager.Initialize();
         m_sceneManager.Initialize();
         m_objectPoolManager.Initialize();
