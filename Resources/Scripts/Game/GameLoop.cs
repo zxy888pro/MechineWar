@@ -29,6 +29,7 @@ public class GameLoop : MonoBehaviour
     void Update()
     {
         m_stateController.UpdateGameState();
+        GlobalClient.Instance.messageDispatcher.Update();
         GlobalClient.Instance.cameraController.Update();
         
     }

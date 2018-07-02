@@ -15,49 +15,51 @@ public class Message
     public object Param;
 }
 
+public class MessageHandlerCollection
+{
+    private List<MessageHandler> m_handlerList;
+    public int count { get { return m_handlerList.Count; } }
+
+    public MessageHandlerCollection()
+    {
+        m_handlerList = new List<MessageHandler>();
+    }
+
+    public void AddHandler(MessageHandler handler)
+    {
+        if (m_handlerList.Contains(handler))
+        {
+            m_handlerList.Add(handler);
+        }
+    }
+
+    public void RemoveHandler(MessageHandler handler)
+    {
+        m_handlerList.Remove(handler);
+    }
+
+    public void DispatchMessage(object sender, object param)
+    {
+        for (int i = 0, count = this.m_handlerList.Count; i < count; i++)
+        {
+            this.m_handlerList[i].Invoke(sender, param);
+        }
+    }
+
+    public void Dispose()
+    {
+        m_handlerList.Clear();
+        m_handlerList = null;
+    }
+
+}
+
 public delegate void MessageHandler(object pSender, object pParam);
 
 public class MessageDispatcher : IGameSystem
 {
-    private class MessageHandlerCollection
-    {
-        private List<MessageHandler> m_handlerList;
-        public int count { get { return m_handlerList.Count; } }
 
-        public MessageHandlerCollection()
-        {
-            m_handlerList = new List<MessageHandler>();
-        }
-
-        public void AddHandler(MessageHandler handler)
-        {
-            if (m_handlerList.Contains(handler))
-            {
-                m_handlerList.Add(handler);
-            }
-        }
-
-        public void RemoveHandler(MessageHandler handler)
-        {
-            m_handlerList.Remove(handler);
-        }
-
-        public void DispatchMessage(object sender, object param)
-        {
-            for (int i = 0, count = this.m_handlerList.Count; i < count; i++)
-            {
-                this.m_handlerList[i].Invoke(sender, param);
-            }
-        }
-
-        public void Dispose()
-        {
-            m_handlerList.Clear();
-            m_handlerList = null;
-        }
-
-    }
-
+    static readonly object mutex = new object();
 
 
     protected Dictionary<MessageID, MessageHandlerCollection> m_handlerDict;
@@ -91,9 +93,12 @@ public class MessageDispatcher : IGameSystem
 
         if (m_messageQueue == null || m_messageQueue.Count == 0)
             return;
-
-        var msg = m_messageQueue.Dequeue();
-        m_handlerDict[msg.msgID].DispatchMessage(msg.Sender, msg.Param);
+        lock(mutex)
+        {
+            var msg = m_messageQueue.Dequeue();
+            m_handlerDict[msg.msgID].DispatchMessage(msg.Sender, msg.Param);
+        }
+        
     }
 
     public void AddHandler(MessageID msgId, MessageHandler handler)
@@ -130,14 +135,18 @@ public class MessageDispatcher : IGameSystem
 
     public void DispatchMessage(MessageID msgId, object sender, object param)
     {
-        if (!m_handlerDict.ContainsKey(msgId))
-            return;
-        Message msg = new Message();
-        msg.Param = param;
-        msg.Sender = sender;
-        msg.msgID = msgId;
+        lock(mutex)
+        {
+            if (!m_handlerDict.ContainsKey(msgId))
+                return;
+            Message msg = new Message();
+            msg.Param = param;
+            msg.Sender = sender;
+            msg.msgID = msgId;
 
-        m_messageQueue.Enqueue(msg);
+            m_messageQueue.Enqueue(msg);
+        }
+        
     }
 
 

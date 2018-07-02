@@ -62,5 +62,30 @@ public class CommonApi
         }
     }
 
+     
+    public static GameObject Find(string path)
+    {
+        GameObject root = GameObject.Find("Root");
+        GameObject go = null;
+        if (root != null)
+        {
+            Transform trans = root.transform.Find(path);
+            if (trans != null)
+            {
+                go = trans.gameObject;
+            }else
+            {
+                root = GameObject.Find("Canvas");
+                if(root != null)
+                {
+                    root.transform.Find(path);
+                    if (trans != null)
+                        go = trans.gameObject;
+
+                }
+            }
+        }
+        return go;
+    }
 
 }
