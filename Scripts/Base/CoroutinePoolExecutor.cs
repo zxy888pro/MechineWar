@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 协程池
+/// 必须依赖一个Monobehavior对象
+/// </summary>
 public class CoroutinePoolExecutor
 {
     //核心协程数量
