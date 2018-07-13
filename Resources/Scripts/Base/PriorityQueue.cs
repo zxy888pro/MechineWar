@@ -179,6 +179,18 @@ public class PriorityQueue<T> where T : new()
         }
     }
 
+    public void Remove(T obj)
+    {
+         for(int i=Count; i>=1; i--)
+         {
+             if(heap[i] != null && heap[i].Equals(obj))
+             {
+                 heap.Remove(heap[i]);
+             }
+         }
+         Sort();
+
+    }
 
     public int Count
     {

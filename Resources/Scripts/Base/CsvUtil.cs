@@ -23,7 +23,7 @@ public static class CsvUtil
     // @param filename File to load
     // @param strict If true, log errors if a line doesn't have enough
     //   fields as per the header. If false, ignores and just fills what it can
-    public static List<T> LoadObjects<T>(string filename, bool strict = true) where T : new()
+    public static List<T> LoadObjectsWithFile<T>(string filename, bool strict = true) where T : new()
     {
         using (var stream = File.Open(filename, FileMode.Open))
         {
@@ -32,6 +32,32 @@ public static class CsvUtil
                 return LoadObjects<T>(rdr, strict);
             }
         }
+    }
+
+    public static List<T> LoadObjectsWithString<T>(string text, bool strict = true) where T: new()
+    {
+        StringReader sr = new StringReader(text);
+
+        var ret = new List<T>();
+        string header = sr.ReadLine();
+        var fieldDefs = ParseHeader(header);
+        FieldInfo[] fi = typeof(T).GetFields();
+        bool isValueType = typeof(T).IsValueType;
+        string line;
+        while ((line = sr.ReadLine()) != null)
+        {
+            var obj = new T();
+            // box manually to avoid issues with structs
+            object boxed = obj;
+            if (ParseLineToObject(line, fieldDefs, fi, boxed, strict))
+            {
+                // unbox value types
+                if (isValueType)
+                    obj = (T)boxed;
+                ret.Add(obj);
+            }
+        }
+        return ret;
     }
 
     // Load a CSV into a list of struct/classes from a stream where each line = 1 object

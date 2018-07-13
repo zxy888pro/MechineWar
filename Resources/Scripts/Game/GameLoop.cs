@@ -9,8 +9,11 @@ public class GameLoop : MonoBehaviour
     private GlobalClient globalClient;
     private GameStateController m_stateController;
 
+    public static GameLoop Instance;
+
     void Awake()
     {
+        Instance = this;
         GameObject.DontDestroyOnLoad(this);
         gameObject.AddComponent<InputMessageDispatcher>(); 
         UnityEngine.Random.seed = (int)DateTime.Now.Ticks;

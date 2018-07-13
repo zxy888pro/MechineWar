@@ -15,6 +15,7 @@ public class GlobalClient
     protected UIManager m_uiManager;
     protected MessageDispatcher m_messageDispatcher;
 
+
     public GameEventManager eventManager { get { return m_gameEventManager; } }
     public GameStateController gameStateController { get { return m_gameStateController; } }
     public CameraController cameraController { get { return m_cameraController; } }
@@ -23,7 +24,6 @@ public class GlobalClient
     public ResourceManager resourceManager { get { return m_resourceManager; } }
     public ObjectPoolManager objectPoolManager { get { return m_objectPoolManager; } }
     public MessageDispatcher messageDispatcher { get { return m_messageDispatcher; } }
-   
 
 
 
