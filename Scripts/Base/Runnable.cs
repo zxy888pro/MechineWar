@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IRunnable
+public class Runnable
 {
     public int priority = 0;
     public virtual IEnumerator OnExcute()
@@ -9,7 +9,7 @@ public class IRunnable
         yield break;
     }
 
-    public static bool Compare(HeapNode<IRunnable> A, HeapNode<IRunnable> B)
+    public static bool Compare(HeapNode<Runnable> A, HeapNode<Runnable> B)
     {
         return A.Value.priority > A.Value.priority;
     }

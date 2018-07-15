@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 public class ResourceLoader : IAssetLoader
 {
-    private CoroutinePoolExecutor m_coroutineExecutor;
+ 
     
     IEnumerator LoadTask()
     {
         yield break;
     }
 
-    public ResourceLoader(MonoBehaviour mono)
+    public ResourceLoader()
     {
-        m_coroutineExecutor = new CoroutinePoolExecutor(mono);
+         
     }
 
     public T Load<T>(string path) where T: Object

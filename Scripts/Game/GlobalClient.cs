@@ -14,6 +14,7 @@ public class GlobalClient
     protected ObjectPoolManager m_objectPoolManager;
     protected UIManager m_uiManager;
     protected MessageDispatcher m_messageDispatcher;
+    protected CoroutinePoolExecutor m_coroutinePoolExecutor;
 
 
     public GameEventManager eventManager { get { return m_gameEventManager; } }
@@ -24,6 +25,7 @@ public class GlobalClient
     public ResourceManager resourceManager { get { return m_resourceManager; } }
     public ObjectPoolManager objectPoolManager { get { return m_objectPoolManager; } }
     public MessageDispatcher messageDispatcher { get { return m_messageDispatcher; } }
+    public CoroutinePoolExecutor coroutinePoolExecutor { get { return m_coroutinePoolExecutor; } }
 
 
 
@@ -42,11 +44,13 @@ public class GlobalClient
         m_gameStateController = new GameStateController();
         m_cameraController = new CameraController();
         m_uiManager = new UIManager();
+        m_coroutinePoolExecutor = new CoroutinePoolExecutor();
 
         
 
         m_gameEventManager.Initialize();
         m_messageDispatcher.Initialize();
+        m_coroutinePoolExecutor.Initialize();
         m_resourceManager.Initialize();
         m_sceneManager.Initialize();
         m_objectPoolManager.Initialize();

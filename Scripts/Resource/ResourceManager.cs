@@ -38,7 +38,8 @@ public class ResourceManager : IGameSystem
         base.Initialize();
         m_loaderDict = new Dictionary<EAssetLoaderType, IAssetLoader>();
         m_resourceDict = new Dictionary<string, ResourceRef>();
-        IAssetLoader resLoader = new ResourceLoader(GameLoop.Instance);
+        IAssetLoader resLoader = new ResourceLoader();
+       
         
 
 
