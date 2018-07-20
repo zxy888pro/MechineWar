@@ -20,29 +20,15 @@ public class ResourceItem
 public class ResourceManager : IGameSystem
 {
 
-    //预置表
-    Dictionary<string, ResourceRef> m_resourceDict;
-
-    public Dictionary<string, ResourceRef> resourceDict
-    {
-        get
-        {
-            return m_resourceDict;
-        }
-    }
-
     Dictionary<EAssetLoaderType, IAssetLoader> m_loaderDict;
 
     public override void Initialize()
     {
         base.Initialize();
         m_loaderDict = new Dictionary<EAssetLoaderType, IAssetLoader>();
-        m_resourceDict = new Dictionary<string, ResourceRef>();
         IAssetLoader resLoader = new ResourceLoader();
        
         
-
-
         TextAsset ta = Resources.Load<TextAsset>("Scp/internalResources.csv");
         if(ta  == null)
         {
@@ -60,7 +46,19 @@ public class ResourceManager : IGameSystem
             Debug.LogError("Parse resconfig.csv failed !");
             throw e;
         }
+        ResourceGroup preLoadResGroup = null;
+        ta = Resources.Load<TextAsset>("Scp/PreloadResources.csv");
+        try
+        {
+            preLoadResGroup = new ResourceGroup();
+            preLoadResGroup.itemList = CsvUtil.LoadObjectsWithString<ResourceItem>(ta.text);
 
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Parse resconfig.csv failed !");
+            throw e;
+        }
         
     }
 

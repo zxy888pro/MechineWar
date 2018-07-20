@@ -10,16 +10,38 @@ public enum ResourceType
     ResourceType_Sprite,
     ResourceType_Text,
     ResourceType_Binary,
-    ResourceType_Texture
+    ResourceType_Texture,
+    ResourceType_Null
 }
 
+public enum ResourceState
+{
+    ResourceState_NotLoaded,
+    ResourceState_Queued,
+    ResourceState_Loading,
+    ResourceState_Ready
+
+}
 /// <summary>
 /// 资源引用
 /// </summary>
-public class ResourceRef 
+public abstract class IResource
 {
-    public ResourceType resType;
+    
     public string resName;
     public string resPath;
+    public ResourceState state;
     public Object res;
+
+    protected ResourceType m_restype;
+
+    public IResource()
+    {
+        m_restype = ResourceType.ResourceType_Null;
+    }
+
+    public abstract ResourceType GetResourceType();
+
+    public virtual Object GetData() { return res; }
+    
 }
